@@ -106,3 +106,24 @@
 --constraint fgnpgn foreign key(group_no)
 --references groups(group_no)
 --on delete no action on update cascade
+
+--alter table students_modules add
+--constraint fsipsi foreign key(student_id)
+--references students(student_id)
+--on delete cascade
+
+--alter table students_modules add
+--constraint fmipmi foreign key(module_id)
+--references modules(module_id)
+--on delete no action;
+
+--alter table lecturers add
+--constraint flipei foreign key(lecturer_id)
+--references employees(employee_id)
+--on delete cascade
+
+--alter table student_grades add
+--constraint fgpg foreign key(grade)
+--references grades(grade)
+--on delete no action on update cascade
+
