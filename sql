@@ -780,3 +780,86 @@
 --select * 
 --from groups
 --where right(group_no, 1) like '1' or right(group_no, 1) like '2'
+
+-- 07.11.2023
+--21.01
+
+--select * 
+--from students
+--where student_id in 
+--	(select student_id from students_modules 
+--	where module_id in 
+--		(select module_id from modules
+--		where module_name='mathematics'))
+--order by surname
+
+--select * 
+--from modules m
+--inner join students_modules sm on m.module_id=sm.module_id
+--inner join students s on sm.student_id=s.student_id
+--where module_name='mathematics'
+--order by surname
+
+--21.02
+
+--select *
+--from modules
+--where module_id not in 
+--(select module_id
+--from students_modules)
+
+--xxxxxxxxxx
+
+--select *
+--from students s
+--cross apply --join
+--(select top(2) * 
+--from student_grades sg
+--where sg.student_id=s.student_id
+--order by grade desc) a
+
+--select *
+--from students s
+--outer apply --left join
+--(select top(2) * 
+--from student_grades sg
+--where sg.student_id=s.student_id
+--order by grade desc) a
+
+--21.03
+
+
+--select student_id
+--from student_grades
+--where exam_date = '20180930' 
+--and student_id in
+--	(select student_id
+--	from student_grades
+--	where exam_date = '20180322')
+--order by student_id desc
+
+--select student_id
+--from student_grades
+--where exam_date = '20180930' 
+--intersect
+--select student_id
+--from student_grades
+--where exam_date = '20180322'
+--order by student_id desc
+
+--21.04
+
+--select s.student_id, surname, first_name, group_no
+--from students s
+--inner join students_modules sm on s.student_id = sm.student_id
+--where sm.module_id = 2
+--and s.student_id in (
+--    select student_id
+--    from students_modules
+--    where module_id = 4
+--)
+--order by s.surname desc;
+
+--21.05
+
+
