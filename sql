@@ -858,6 +858,111 @@
 --    from students_modules
 --    where module_id = 4
 --)
+=====
+--22.01a
+--create or alter function zapisani_studenci (@module_name varchar(100))
+--returns table as return
+--select surname, first_name from students
+--where student_id in
+--(select student_id from students_modules
+--where module_id in
+--(select module_id from modules
+--where module_name = @module_name))
+
+--select * from zapisani_studenci('mathematics')
+--order by surname;
+
+--create or alter view v_zapisani_studenci as 
+--select surname, first_name from students
+--where student_id in
+--(select student_id from students_modules
+--where module_id in
+--(select module_id from modules
+--where module_name = session_context(N'module')))
+
+--exec sp_set_session_context @key=N'module', @value='statistics'
+--select * from v_zapisani_studenci
+
+--22.08a
+
+--with EmpsCTE as
+--(
+--select module_id, module_name, preceding_module, 0 as distance
+--from modules
+--where module_id = 11
+--	union all
+--select M.module_id, M.module_name, M.preceding_module, S.distance + 1
+--from EmpsCTE as S join modules as m
+--ON S.preceding_module = M.module_id
+--)
+--SELECT *
+--FROM EmpsCTE;
+
+--create or alter function preceding_modules (@module_id int)
+--returns table as return
+--with EmpsCTE as
+--(
+--select module_id, module_name, preceding_module, 0 as distance
+--from modules
+--where module_id = @module_id
+--	union all
+--select M.module_id, M.module_name, M.preceding_module, S.distance + 1
+--from EmpsCTE as S join modules as m
+--ON S.preceding_module = M.module_id
+--)
+--SELECT *
+--FROM EmpsCTE;
+
+--select * from preceding_modules(9)
+
+--22.06a
+
+--with x as 
+--(select s.student_id, surname, first_name, date_of_birth, exam_date, row_number() over
+--(partition by s.student_id
+--order by exam_date desc) as nr_rekordu
+--from students s
+--inner join student_grades sg on s.student_id = sg.student_id)
+--select * from x
+--where nr_rekordu = 1 
+
+
+--select * from 
+--(select s.student_id, surname, first_name, date_of_birth, exam_date, row_number() over
+--(partition by s.student_id
+--order by exam_date desc) as nr_rekordu
+--from students s
+--inner join student_grades sg on s.student_id = sg.student_id) x
+--where nr_rekordu=1
+
+--22.02
+
+--select *, row_number() over( 
+--partition by module_id order by exam_date, student_id) as sequence_num
+--from student_grades
+
+--22.03
+
+--create or alter function positive_grade()
+--returns table as return
+
+--select *, row_number() over( 
+--partition by student_id order by exam_date) as sequence_num
+--from student_grades
+--where grade > 2
+
+--select * from positive_grade()
+
+--22.04
+
+--select s.student_id, surname, exam_date, row_number() over
+--(partition by s.student_id
+--order by exam_date desc) as nr_rekordu
+--from students s
+--inner join student_grades sg on s.student_id = sg.student_id
+--where grade > 2
+
+
 --order by s.surname desc;
 
 --21.05
