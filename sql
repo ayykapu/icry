@@ -966,5 +966,46 @@
 --order by s.surname desc;
 
 --21.05
+=============================================================
+
+--23/1.01
+--select COUNT(student_id) from students;
+
+--23/1.02
+--select COUNT(student_id)
+--from students s inner join groups g on s.group_no=g.group_no
+
+--23/1.03
+--select count(student_id) from students s
+--where group_no is null
+
+--23/1.04
+--select count(distinct group_no) from students
+--where group_no is not null
+
+--23/1.05
+--select distinct group_no, count(student_id) as no_of_students from students
+--group by group_no
+--order by no_of_students
+
+--23/1.06
+--select distinct group_no, count(student_id) as no_of_students from students
+--group by group_no
 
 
+
+
+--23/1.09
+--select l.lecturer_id, e.surname, count(module_id) licza_wykladow
+--from employees e inner join lecturers l on e.employee_id=l.lecturer_id
+--left join modules m on l.lecturer_id=m.lecturer_id
+--group by l.lecturer_id, e.surname
+
+--23/1.21
+--select m.module_id, m.module_name, m.department, max(concat(surname, ' ', first_name)) legal_name 
+--from modules m
+--inner join lecturers l on m.department=l.department
+--inner join employees e on l.lecturer_id=e.employee_id
+--where m.lecturer_id is null
+--group by m.module_id, m.module_name, m.department
+--order by module_id
